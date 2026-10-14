@@ -17,14 +17,23 @@ a:hover { color: var(--accent-dark); }
 .page-width { width: min(1080px, calc(100% - 80px)); margin-inline: auto; }
 
 .site-header {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
   height: 76px;
   width: calc(100% - 80px);
   max-width: 1240px;
   margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+  border: 1px solid #dce3e8;
+  border-radius: 999px;
+  background: rgb(251 251 248 / 88%);
+  box-shadow: 0 8px 26px rgb(24 36 45 / 7%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 .wordmark { display: inline-flex; align-items: center; gap: 9px; font: 700 11px var(--mono); letter-spacing: .055em; }
 .wordmark > span:first-child { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid #aebdca; border-radius: 50%; color: var(--accent-dark); font: 600 14px var(--display); letter-spacing: 0; }
@@ -180,7 +189,7 @@ nav { display: flex; align-items: center; gap: 32px; color: #46545e; font-size: 
 @media (max-width: 640px) {
   html { scroll-padding-top: 66px; }
   .page-width, .site-header, .site-footer { width: calc(100% - 40px); }
-  .site-header { height: 66px; }
+  .site-header { top: 8px; height: 58px; padding: 0 13px; }
   .wordmark { gap: 7px; font-size: 9px; }
   .wordmark > span:first-child { width: 27px; height: 27px; }
   nav { gap: 15px; font-size: 12px; }
