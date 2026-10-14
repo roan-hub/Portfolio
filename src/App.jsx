@@ -124,7 +124,7 @@ function App() {
         <section className="about-section page-width" id="about">
           <div className="section-label"><span>01 / ABOUT</span><i /></div>
           <div className="about-grid">
-            <h2>Good work starts<br />with <span>curiosity.</span></h2>
+            <h2>Hi, I'm<br /><span>Roan Villaluz.</span></h2>
             <div className="about-copy">
               <p>I’m pursuing a Bachelor of Science in Information Technology at National University Manila, majoring in Mobile and Web Application.</p>
               <p>My university projects have given me experience with front-end development, databases, and team collaboration. I’m looking for an internship where I can contribute, strengthen my skills, and learn from an experienced team.</p>
