@@ -7,8 +7,8 @@ const projects = [
     name: 'BiyaHero',
     kind: 'Capstone project · Front-end developer',
     date: 'May 2026',
-    description: 'A map-centered travel concept. Built the interface, added search and filtering interactions, and integrated a Leaflet map to help people explore routes.',
-    tools: ['React', 'Vite', 'Leaflet'],
+    description: 'A route management and safety reporting platform. Built the interface, added search and filtering interactions, and integrated a Mapbox map to help admins review reports and explore route coverage.',
+    tools: ['React', 'Vite', 'Mapbox'],
     visual: 'map',
     thumbnail: '/projects/biyahero/login.png',
     screenshots: [
