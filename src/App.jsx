@@ -102,8 +102,8 @@ function App() {
         <section className="hero page-width" id="home">
           <div className="hero-copy">
             <p className="eyebrow"><span className="availability-dot" /> OPEN TO INTERNSHIP OPPORTUNITIES</p>
-            <h1>Building useful<br />things for the <span>web.</span></h1>
-            <p className="hero-description">I’m Roan, an Information Technology student exploring web and mobile development through hands-on projects.</p>
+            <h1>I'm Roan, an IT student<br />focused on <span>web &amp; mobile.</span></h1>
+            <p className="hero-description">I’m studying Information Technology at National University Manila and building my skills through hands-on web and mobile projects.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">Explore my work <Arrow /></a>
               <a className="simple-link" href="mailto:vroan21@gmail.com">Get in touch <Arrow diagonal /></a>
