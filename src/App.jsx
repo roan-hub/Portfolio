@@ -106,6 +106,7 @@ function App() {
             <p className="hero-description">I’m studying Information Technology at National University Manila and building my skills through hands-on web and mobile projects.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">Explore my work <Arrow /></a>
+              <a className="button button-outline" href="/resume.pdf" download="Roan-Villaluz-Resume.pdf" aria-label="Download Roan Villaluz's resume as a PDF">Download resume</a>
               <a className="simple-link" href="mailto:vroan21@gmail.com">Get in touch <Arrow diagonal /></a>
             </div>
             <div className="hero-footnote"><span>MANILA, PHILIPPINES</span><span>WEB · MOBILE · SOFTWARE</span></div>
