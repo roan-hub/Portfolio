@@ -71,6 +71,15 @@ function Arrow({ diagonal = false }) {
   return <span className="arrow" aria-hidden="true">{diagonal ? '↗' : '→'}</span>
 }
 
+function scrollToSection(event, sectionId) {
+  const section = document.getElementById(sectionId)
+  if (!section) return
+
+  event.preventDefault()
+  window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`)
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 function ProjectArt({ thumbnail }) {
   return (
     <div className="project-art" aria-hidden="true">
@@ -182,12 +191,12 @@ function App() {
   return (
     <>
       <header className="site-header">
-        <a className="wordmark" href="#home" aria-label="Roan Villaluz home"><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
+        <a className="wordmark" href="#home" onClick={(event) => scrollToSection(event, 'home')} aria-label="Roan Villaluz home"><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
         <nav aria-label="Main navigation">
-          <a href="#about">About</a>
-          <a href="#work">Projects</a>
-          <a href="#skills">Skills</a>
-          <a className="nav-cta" href="#contact">Contact <Arrow diagonal /></a>
+          <a href="#about" onClick={(event) => scrollToSection(event, 'about')}>About</a>
+          <a href="#work" onClick={(event) => scrollToSection(event, 'work')}>Projects</a>
+          <a href="#skills" onClick={(event) => scrollToSection(event, 'skills')}>Skills</a>
+          <a className="nav-cta" href="#contact" onClick={(event) => scrollToSection(event, 'contact')}>Contact <Arrow diagonal /></a>
         </nav>
       </header>
 
@@ -198,7 +207,7 @@ function App() {
             <h1>IT student<br />building for <span>web &amp; mobile.</span></h1>
             <p className="hero-description">I’m studying Information Technology at National University Manila and building my skills through hands-on web and mobile projects.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#work">Explore my work <Arrow /></a>
+              <a className="button button-primary" href="#work" onClick={(event) => scrollToSection(event, 'work')}>Explore my work <Arrow /></a>
               <a className="button button-outline" href="/resume.pdf" download="Roan-Villaluz-Resume.pdf" aria-label="Download Roan Villaluz's resume as a PDF">Download resume</a>
               <a className="simple-link" href="mailto:vroan21@gmail.com">Get in touch <Arrow diagonal /></a>
             </div>
@@ -212,7 +221,7 @@ function App() {
             <span className="graphic-star star-bottom" aria-hidden="true">✳</span>
             <span className="graphic-caption" aria-hidden="true">A LITTLE CURIOSITY GOES A LONG WAY</span>
           </div>
-          <a className="scroll-note" href="#about"><span /> SCROLL TO EXPLORE</a>
+          <a className="scroll-note" href="#about" onClick={(event) => scrollToSection(event, 'about')}><span /> SCROLL TO EXPLORE</a>
         </section>
 
         <section className="about-section page-width" id="about">
@@ -290,9 +299,9 @@ function App() {
       </main>
 
       <footer className="site-footer page-width">
-        <a className="wordmark" href="#home"><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
+        <a className="wordmark" href="#home" onClick={(event) => scrollToSection(event, 'home')}><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
         <small>BUILT WITH REACT + VITE</small>
-        <a className="back-top" href="#home">BACK TO TOP ↑</a>
+        <a className="back-top" href="#home" onClick={(event) => scrollToSection(event, 'home')}>BACK TO TOP ↑</a>
       </footer>
     </>
   )
