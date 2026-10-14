@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const projects = [
@@ -9,6 +10,19 @@ const projects = [
     description: 'A map-centered travel concept. Built the interface, added search and filtering interactions, and integrated a Leaflet map to help people explore routes.',
     tools: ['React', 'Vite', 'Leaflet'],
     visual: 'map',
+    thumbnail: '/projects/biyahero/login.png',
+    screenshots: [
+      { label: 'Login page', src: '/projects/biyahero/login.png', alt: 'BiyaHero login screen' },
+      { label: 'Dashboard', src: '/projects/biyahero/dashboard.png', alt: 'BiyaHero dashboard overview' },
+      { label: 'Report management', src: '/projects/biyahero/reports.png', alt: 'BiyaHero report management map and filters' },
+      { label: 'Route management', src: '/projects/biyahero/routes.png', alt: 'BiyaHero route management map and filters' },
+    ],
+    overview: 'BiyaHero is a capstone project focused on transportation safety. The web app brings route information and community reports together so administrators can review safety concerns and explore route coverage.',
+    contributions: [
+      'Built the front-end interface with React and Vite.',
+      'Added search, dropdown, and filtering interactions to help users find information.',
+      'Integrated a map into the interface to make route information easier to explore.',
+    ],
   },
   {
     number: '02',
@@ -40,10 +54,11 @@ function Arrow({ diagonal = false }) {
   return <span className="arrow" aria-hidden="true">{diagonal ? '↗' : '→'}</span>
 }
 
-function ProjectArt({ type }) {
+function ProjectArt({ type, thumbnail }) {
   if (type === 'map') {
     return (
       <div className="project-art map-art" aria-hidden="true">
+        {thumbnail && <img className="project-thumbnail" src={thumbnail} alt="" onError={(event) => event.currentTarget.remove()} />}
         <div className="map-lines" />
         <span className="map-route map-route-a" />
         <span className="map-route map-route-b" />
@@ -69,10 +84,10 @@ function ProjectArt({ type }) {
   )
 }
 
-function ProjectCard({ project }) {
-  return (
-    <article className="project-card">
-      <ProjectArt type={project.visual} />
+function ProjectCard({ project, onOpen }) {
+  const content = (
+    <>
+      <ProjectArt type={project.visual} thumbnail={project.thumbnail} />
       <div className="project-details">
         <div className="project-meta"><span>{project.kind}</span><time>{project.date}</time></div>
         <h3>{project.name}</h3>
@@ -81,11 +96,71 @@ function ProjectCard({ project }) {
           {project.tools.map((tool) => <li key={tool}>{tool}</li>)}
         </ul>
       </div>
-    </article>
+    </>
+  )
+
+  if (!project.screenshots) return <article className="project-card">{content}</article>
+
+  return <a className="project-card project-card-link" href={`#project-${project.number}`} onClick={(event) => { event.preventDefault(); onOpen(project) }} aria-label={`View ${project.name} project details`}>{content}</a>
+}
+
+function ProjectDetails({ project, onClose }) {
+  const dialogRef = useRef(null)
+  const [loadedScreenshots, setLoadedScreenshots] = useState([])
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return undefined
+    dialog.showModal()
+    return () => dialog.close()
+  }, [])
+
+  return (
+    <dialog
+      className="project-dialog"
+      ref={dialogRef}
+      aria-labelledby="project-dialog-title"
+      onCancel={(event) => { event.preventDefault(); onClose() }}
+      onClick={(event) => { if (event.target === event.currentTarget) onClose() }}
+    >
+      <button className="project-dialog-close" type="button" onClick={onClose} aria-label="Close project details">Close <span aria-hidden="true">×</span></button>
+      <div className="project-dialog-content">
+        <p className="eyebrow">CAPSTONE PROJECT · FRONT-END DEVELOPER</p>
+        <h2 id="project-dialog-title">{project.name}<span>.</span></h2>
+        <p className="project-dialog-lede">{project.overview}</p>
+
+        <div className="project-detail-columns">
+          <section>
+            <h3>What I worked on</h3>
+            <ul>{project.contributions.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section>
+            <h3>Tools used</h3>
+            <ul className="tag-list">{project.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
+            <p className="project-detail-date">{project.date} · National University Manila</p>
+          </section>
+        </div>
+
+        <section className="project-showcase" aria-labelledby="project-showcase-title">
+          <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h3 id="project-showcase-title">Screens from BiyaHero</h3></div><p>Private account and activity screens are left out.</p></div>
+          <div className="screenshot-gallery">
+            {project.screenshots.map((screenshot) => (
+              <figure className="screenshot-card" key={screenshot.src} hidden={!loadedScreenshots.includes(screenshot.src)}>
+                <div className="screenshot-frame"><img src={screenshot.src} alt={screenshot.alt} onLoad={() => setLoadedScreenshots((loaded) => loaded.includes(screenshot.src) ? loaded : [...loaded, screenshot.src])} /></div>
+                <figcaption>{screenshot.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+          {loadedScreenshots.length === 0 && <p className="screenshot-upload-note">Add the BiyaHero screenshot files to the project folder to show them here.</p>}
+        </section>
+      </div>
+    </dialog>
   )
 }
 
 function App() {
+  const [activeProject, setActiveProject] = useState(null)
+
   return (
     <>
       <header className="site-header">
@@ -125,7 +200,7 @@ function App() {
         <section className="about-section page-width" id="about">
           <div className="section-label"><span>01 / ABOUT</span><i /></div>
           <div className="about-grid">
-            <h2>Hi, I'm<br /><span>Roan Villaluz.</span></h2>
+            <h2>Hi, I'm<br /><span>Roan James A. Villaluz.</span></h2>
             <div className="about-copy">
               <p>I’m pursuing a Bachelor of Science in Information Technology at National University Manila, majoring in Mobile and Web Application.</p>
               <p>My university projects have given me experience with front-end development, databases, and team collaboration. I’m looking for an internship where I can contribute, strengthen my skills, and learn from an experienced team.</p>
@@ -143,8 +218,8 @@ function App() {
           <div className="page-width work-inner">
             <div className="section-label"><span>02 / SELECTED WORK</span><i /></div>
             <div className="work-intro"><h2>Projects with<br />purpose<span>.</span></h2><p>A selection of university projects where I’ve put my development skills into practice.</p></div>
-            <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
-            <p className="work-note">Project previews are illustrative. Add real screenshots, demos, and repository links as they become available.</p>
+            <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} onOpen={setActiveProject} />)}</div>
+            <p className="work-note">The E-commerce preview is illustrative; more screenshots and project links can be added as they become available.</p>
           </div>
         </section>
 
@@ -201,6 +276,7 @@ function App() {
         <small>BUILT WITH REACT + VITE</small>
         <a className="back-top" href="#home">BACK TO TOP ↑</a>
       </footer>
+      {activeProject && <ProjectDetails project={activeProject} onClose={() => setActiveProject(null)} />}
     </>
   )
 }
