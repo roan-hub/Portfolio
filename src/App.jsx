@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const projects = [
   {
     number: '01',
+    slug: 'biyahero',
     name: 'BiyaHero',
     kind: 'Capstone project · Front-end developer',
     date: 'May 2026',
@@ -27,6 +28,7 @@ const projects = [
   },
   {
     number: '02',
+    slug: 'degraded',
     name: 'E-commerce Website',
     kind: 'University project · Main developer',
     date: 'June 2025',
@@ -108,7 +110,7 @@ function ProjectArt({ type, thumbnail }) {
   )
 }
 
-function ProjectCard({ project, onOpen }) {
+function ProjectCard({ project }) {
   const content = (
     <>
       <ProjectArt type={project.visual} thumbnail={project.thumbnail} />
@@ -125,65 +127,82 @@ function ProjectCard({ project, onOpen }) {
 
   if (!project.screenshots) return <article className="project-card">{content}</article>
 
-  return <a className="project-card project-card-link" href={`#project-${project.number}`} onClick={(event) => { event.preventDefault(); onOpen(project) }} aria-label={`View ${project.name} project details`}>{content}</a>
+  return <a className="project-card project-card-link" href={`#/projects/${project.slug}`} aria-label={`View ${project.name} project details`}>{content}</a>
 }
 
-function ProjectDetails({ project, onClose }) {
-  const dialogRef = useRef(null)
-  const [loadedScreenshots, setLoadedScreenshots] = useState([])
-
-  useEffect(() => {
-    const dialog = dialogRef.current
-    if (!dialog) return undefined
-    dialog.showModal()
-    return () => dialog.close()
-  }, [])
-
+function ProjectDetails({ project }) {
   return (
-    <dialog
-      className="project-dialog"
-      ref={dialogRef}
-      aria-labelledby="project-dialog-title"
-      onCancel={(event) => { event.preventDefault(); onClose() }}
-      onClick={(event) => { if (event.target === event.currentTarget) onClose() }}
-    >
-      <button className="project-dialog-close" type="button" onClick={onClose} aria-label="Close project details">Close <span aria-hidden="true">×</span></button>
-      <div className="project-dialog-content">
+    <main className="project-page page-width">
+      <div className="project-page-nav">
+        <a className="wordmark" href="/#home" aria-label="Roan Villaluz home"><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
+        <a className="simple-link" href="/#work">← Back to all projects</a>
+      </div>
+
+      <section className="project-page-intro" aria-labelledby="project-page-title">
         <p className="eyebrow">{project.kind.toUpperCase()}</p>
-        <h2 id="project-dialog-title">{project.name}<span>.</span></h2>
+        <h1 id="project-page-title">{project.name}<span>.</span></h1>
         <p className="project-dialog-lede">{project.overview}</p>
+        <p className="project-detail-date">{project.date} · National University Manila</p>
+      </section>
 
-        <div className="project-detail-columns">
-          <section>
-            <h3>What I worked on</h3>
-            <ul>{project.contributions.map((item) => <li key={item}>{item}</li>)}</ul>
-          </section>
-          <section>
-            <h3>Tools used</h3>
-            <ul className="tag-list">{project.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
-            <p className="project-detail-date">{project.date} · National University Manila</p>
-          </section>
-        </div>
+      <div className="project-page-cover"><img src={project.thumbnail} alt={`${project.name} project preview`} /></div>
 
-        <section className="project-showcase" aria-labelledby="project-showcase-title">
-          <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h3 id="project-showcase-title">Screens from {project.name}</h3></div><p>{project.galleryNote}</p></div>
-          <div className="screenshot-gallery">
-            {project.screenshots.map((screenshot) => (
-              <figure className="screenshot-card" key={screenshot.src} hidden={!loadedScreenshots.includes(screenshot.src)}>
-                <div className="screenshot-frame"><img src={screenshot.src} alt={screenshot.alt} onLoad={() => setLoadedScreenshots((loaded) => loaded.includes(screenshot.src) ? loaded : [...loaded, screenshot.src])} /></div>
-                <figcaption>{screenshot.label}</figcaption>
-              </figure>
-            ))}
-          </div>
-          {loadedScreenshots.length === 0 && <p className="screenshot-upload-note">Project screenshots are not available yet.</p>}
+      <div className="project-detail-columns">
+        <section>
+          <h2>What I worked on</h2>
+          <ul>{project.contributions.map((item) => <li key={item}>{item}</li>)}</ul>
+        </section>
+        <section>
+          <h2>Tools used</h2>
+          <ul className="tag-list">{project.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
         </section>
       </div>
-    </dialog>
+
+      <section className="project-showcase" aria-labelledby="project-showcase-title">
+        <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h2 id="project-showcase-title">Screens from {project.name}</h2></div><p>{project.galleryNote}</p></div>
+        <div className="screenshot-gallery">
+          {project.screenshots.map((screenshot) => (
+            <figure className="screenshot-card" key={screenshot.src}>
+              <div className="screenshot-frame"><img src={screenshot.src} alt={screenshot.alt} /></div>
+              <figcaption>{screenshot.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <div className="project-page-bottom"><a className="button button-primary" href="/#work">← Back to all projects</a><a className="simple-link" href="/#contact">Get in touch <Arrow diagonal /></a></div>
+    </main>
   )
 }
 
 function App() {
-  const [activeProject, setActiveProject] = useState(null)
+  const [activeProject, setActiveProject] = useState(() => {
+    const slug = window.location.hash.match(/^#\/projects\/([^/]+)$/)?.[1]
+    return projects.find((project) => project.slug === slug) ?? null
+  })
+
+  useEffect(() => {
+    const syncProjectRoute = () => {
+      const slug = window.location.hash.match(/^#\/projects\/([^/]+)$/)?.[1]
+      setActiveProject(projects.find((project) => project.slug === slug) ?? null)
+    }
+
+    window.addEventListener('hashchange', syncProjectRoute)
+    return () => window.removeEventListener('hashchange', syncProjectRoute)
+  }, [])
+
+  useEffect(() => {
+    if (activeProject) {
+      window.scrollTo(0, 0)
+      return
+    }
+
+    const sectionId = window.location.hash.slice(1)
+    if (!sectionId || sectionId.startsWith('/')) return
+    requestAnimationFrame(() => document.getElementById(sectionId)?.scrollIntoView())
+  }, [activeProject])
+
+  if (activeProject) return <ProjectDetails project={activeProject} />
 
   return (
     <>
@@ -242,7 +261,7 @@ function App() {
           <div className="page-width work-inner">
             <div className="section-label"><span>02 / SELECTED WORK</span><i /></div>
             <div className="work-intro"><h2>Projects with<br />purpose<span>.</span></h2><p>A selection of university projects where I’ve put my development skills into practice.</p></div>
-            <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} onOpen={setActiveProject} />)}</div>
+            <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
             <p className="work-note">Select a project to view its details and screenshots.</p>
           </div>
         </section>
@@ -300,7 +319,6 @@ function App() {
         <small>BUILT WITH REACT + VITE</small>
         <a className="back-top" href="#home">BACK TO TOP ↑</a>
       </footer>
-      {activeProject && <ProjectDetails project={activeProject} onClose={() => setActiveProject(null)} />}
     </>
   )
 }
