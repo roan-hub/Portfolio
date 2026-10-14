@@ -18,6 +18,7 @@ const projects = [
       { label: 'Route management', src: '/projects/biyahero/routes.png', alt: 'BiyaHero route management map and filters' },
     ],
     overview: 'BiyaHero is a capstone project focused on transportation safety. The web app brings route information and community reports together so administrators can review safety concerns and explore route coverage.',
+    galleryNote: 'Account management, security, and activity screens are left out of this showcase.',
     contributions: [
       'Built the front-end interface with React and Vite.',
       'Added search, dropdown, and filtering interactions to help users find information.',
@@ -32,6 +33,22 @@ const projects = [
     description: 'Developed an online shopping experience with authentication, product catalog, cart, and checkout. Coordinated front-end and back-end integration with a four-person team.',
     tools: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
     visual: 'shop',
+    thumbnail: '/projects/degraded/home.png',
+    screenshots: [
+      { label: 'Home page', src: '/projects/degraded/home.png', alt: 'Degraded streetwear store home page' },
+      { label: 'Product shop', src: '/projects/degraded/shop.png', alt: 'Degraded product catalog with category filters' },
+      { label: 'Login and sign up', src: '/projects/degraded/login.png', alt: 'Degraded login and sign-up screen' },
+      { label: 'Shopping cart', src: '/projects/degraded/cart.png', alt: 'Degraded shopping cart and order total' },
+      { label: 'About the brand', src: '/projects/degraded/about.png', alt: 'About the Degraded streetwear brand' },
+    ],
+    overview: 'An e-commerce website built for Degraded, a streetwear clothing brand. Customers can browse and filter products, create an account, add items to a cart, and continue through checkout.',
+    galleryNote: 'Profile and checkout screens are left out because they show account details.',
+    contributions: [
+      'Developed the e-commerce website as the main developer and coordinated a four-person team.',
+      'Implemented authentication, a product catalog, a shopping cart, and checkout flow.',
+      'Built with HTML, CSS, JavaScript, and PHP, backed by MySQL.',
+      'Coordinated front-end and back-end integration across the team.',
+    ],
   },
 ]
 
@@ -55,10 +72,17 @@ function Arrow({ diagonal = false }) {
 }
 
 function ProjectArt({ type, thumbnail }) {
+  if (thumbnail) {
+    return (
+      <div className={`project-art ${type === 'shop' ? 'shop-art' : 'map-art'}`} aria-hidden="true">
+        <img className="project-thumbnail" src={thumbnail} alt="" onError={(event) => event.currentTarget.remove()} />
+      </div>
+    )
+  }
+
   if (type === 'map') {
     return (
       <div className="project-art map-art" aria-hidden="true">
-        {thumbnail && <img className="project-thumbnail" src={thumbnail} alt="" onError={(event) => event.currentTarget.remove()} />}
         <div className="map-lines" />
         <span className="map-route map-route-a" />
         <span className="map-route map-route-b" />
@@ -125,7 +149,7 @@ function ProjectDetails({ project, onClose }) {
     >
       <button className="project-dialog-close" type="button" onClick={onClose} aria-label="Close project details">Close <span aria-hidden="true">×</span></button>
       <div className="project-dialog-content">
-        <p className="eyebrow">CAPSTONE PROJECT · FRONT-END DEVELOPER</p>
+        <p className="eyebrow">{project.kind.toUpperCase()}</p>
         <h2 id="project-dialog-title">{project.name}<span>.</span></h2>
         <p className="project-dialog-lede">{project.overview}</p>
 
@@ -142,7 +166,7 @@ function ProjectDetails({ project, onClose }) {
         </div>
 
         <section className="project-showcase" aria-labelledby="project-showcase-title">
-          <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h3 id="project-showcase-title">Screens from BiyaHero</h3></div><p>Private account and activity screens are left out.</p></div>
+          <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h3 id="project-showcase-title">Screens from {project.name}</h3></div><p>{project.galleryNote}</p></div>
           <div className="screenshot-gallery">
             {project.screenshots.map((screenshot) => (
               <figure className="screenshot-card" key={screenshot.src} hidden={!loadedScreenshots.includes(screenshot.src)}>
@@ -151,7 +175,7 @@ function ProjectDetails({ project, onClose }) {
               </figure>
             ))}
           </div>
-          {loadedScreenshots.length === 0 && <p className="screenshot-upload-note">Add the BiyaHero screenshot files to the project folder to show them here.</p>}
+          {loadedScreenshots.length === 0 && <p className="screenshot-upload-note">Project screenshots are not available yet.</p>}
         </section>
       </div>
     </dialog>
@@ -219,7 +243,7 @@ function App() {
             <div className="section-label"><span>02 / SELECTED WORK</span><i /></div>
             <div className="work-intro"><h2>Projects with<br />purpose<span>.</span></h2><p>A selection of university projects where I’ve put my development skills into practice.</p></div>
             <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} onOpen={setActiveProject} />)}</div>
-            <p className="work-note">The E-commerce preview is illustrative; more screenshots and project links can be added as they become available.</p>
+            <p className="work-note">Select a project to view its details and screenshots.</p>
           </div>
         </section>
 
