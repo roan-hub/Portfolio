@@ -96,7 +96,7 @@ function ProjectCard({ project }) {
 
   if (!project.screenshots) return <article className="project-card">{content}</article>
 
-  return <a className="project-card project-card-link" href={`/projects/${project.slug}`} onClick={(event) => { event.preventDefault(); onOpen(project) }} aria-label={`View ${project.name} project details`}>{content}</a>
+  return <a className="project-card project-card-link" href={`#/projects/${project.slug}`} aria-label={`View ${project.name} project details`}>{content}</a>
 }
 
 function ProjectDetails({ project }) {
@@ -152,18 +152,18 @@ function ProjectDetails({ project }) {
 
 function App() {
   const [activeProject, setActiveProject] = useState(() => {
-    const slug = window.location.pathname.match(/^\/projects\/([^/]+)\/?$/)?.[1]
+    const slug = window.location.hash.match(/^#\/projects\/([^/]+)$/)?.[1]
     return projects.find((project) => project.slug === slug) ?? null
   })
 
   useEffect(() => {
     const syncProjectRoute = () => {
-      const slug = window.location.pathname.match(/^\/projects\/([^/]+)\/?$/)?.[1]
+      const slug = window.location.hash.match(/^#\/projects\/([^/]+)$/)?.[1]
       setActiveProject(projects.find((project) => project.slug === slug) ?? null)
     }
 
-    window.addEventListener('popstate', syncProjectRoute)
-    return () => window.removeEventListener('popstate', syncProjectRoute)
+    window.addEventListener('hashchange', syncProjectRoute)
+    return () => window.removeEventListener('hashchange', syncProjectRoute)
   }, [])
 
   useEffect(() => {
@@ -173,14 +173,9 @@ function App() {
     }
 
     const sectionId = window.location.hash.slice(1)
-    if (!sectionId) return
+    if (!sectionId || sectionId.startsWith('/')) return
     requestAnimationFrame(() => document.getElementById(sectionId)?.scrollIntoView())
   }, [activeProject])
-
-  const openProject = (project) => {
-    window.history.pushState({}, '', `/projects/${project.slug}`)
-    setActiveProject(project)
-  }
 
   if (activeProject) return <ProjectDetails project={activeProject} />
 
@@ -189,9 +184,9 @@ function App() {
       <header className="site-header">
         <a className="wordmark" href="#home" aria-label="Roan Villaluz home"><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
         <nav aria-label="Main navigation">
-          <a href="About">About</a>
-          <a href="Work">Projects</a>
-          <a href="Skills">Skills</a>
+          <a href="#about">About</a>
+          <a href="#work">Projects</a>
+          <a href="#skills">Skills</a>
           <a className="nav-cta" href="#contact">Contact <Arrow diagonal /></a>
         </nav>
       </header>
@@ -240,8 +235,8 @@ function App() {
         <section className="work-section" id="work">
           <div className="page-width work-inner">
             <div className="section-label"><span>02 / SELECTED WORK</span><i /></div>
-            <div className="work-intro"><h2>Projects with<br />purpose<span>.</span></h2></div>
-            <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} onOpen={openProject} />)}</div>
+            <div className="work-intro"><h2>Projects with<br />purpose<span>.</span></h2><p>A selection of university projects where I’ve applied my development skills.</p></div>
+            <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
             <p className="work-note">Select a project to view its details and screenshots.</p>
           </div>
         </section>
