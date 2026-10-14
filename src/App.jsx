@@ -143,7 +143,7 @@ function ProjectDetails({ project }) {
       </div>
 
       <section className="project-showcase" aria-labelledby="project-showcase-title">
-        <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h2 id="project-showcase-title">Screens from {project.name}</h2></div><p>{project.galleryNote}</p></div>
+        <div className="project-showcase-heading"><div><p className="micro-label">PROJECT SHOWCASE</p><h2 id="project-showcase-title">Screens from {project.name}</h2></div><p>{project.galleryNote}</p></div>
         <div className="screenshot-gallery">
           {project.screenshots.map((screenshot) => (
             <figure className="screenshot-card" key={screenshot.src}>
