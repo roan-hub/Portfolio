@@ -102,7 +102,7 @@ function App() {
         <section className="hero page-width" id="home">
           <div className="hero-copy">
             <p className="eyebrow"><span className="availability-dot" /> OPEN TO INTERNSHIP OPPORTUNITIES</p>
-            <h1>I'm Roan, an IT student<br />focused on <span>web &amp; mobile.</span></h1>
+            <h1>IT student<br />into <span>web &amp; mobile.</span></h1>
             <p className="hero-description">I’m studying Information Technology at National University Manila and building my skills through hands-on web and mobile projects.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">Explore my work <Arrow /></a>
