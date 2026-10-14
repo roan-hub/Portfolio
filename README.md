@@ -9,7 +9,7 @@ A responsive portfolio built with React and Vite to showcase my projects, educat
 - Skills, education, seminars, and workshops
 - Responsive layouts for mobile and desktop
 
-Project detail pages are available at `/#/projects/biyahero` and `/#/projects/degraded`.
+Project detail pages are available at `/projects/biyahero` and `/projects/degraded`.
 
 ## Built with
 
