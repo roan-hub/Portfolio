@@ -63,10 +63,8 @@ nav { display: flex; align-items: center; gap: 32px; color: #46545e; font-size: 
 .hero-graphic { position: absolute; top: 91px; right: 27px; width: 370px; height: 370px; }
 .graphic-ring { position: absolute; inset: 12px; border: 1px solid #d6e0e8; border-radius: 50%; }
 .ring-inner { inset: 47px; transform: rotate(-35deg) scaleX(.8); }
-.graphic-orb { position: absolute; top: 68px; left: 68px; width: 234px; height: 234px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 32% 27%, #9aafc0, #617f99 57%, #3d5b75); box-shadow: 0 22px 50px #38566a2b, inset -20px -24px 38px #263d5444; }
-.graphic-orb::before, .graphic-orb::after { content: ''; position: absolute; inset: 24px; border: 1px solid #ffffff3d; border-radius: 50%; }
-.graphic-orb::after { inset: 48px; }
-.graphic-orb span { color: white; font: 500 112px var(--display); letter-spacing: -.1em; opacity: .94; transform: translateX(-5px); }
+.graphic-orb { position: absolute; top: 68px; left: 68px; width: 234px; height: 234px; overflow: hidden; border: 5px solid white; border-radius: 50%; background: #eaf0f4; box-shadow: 0 22px 50px #38566a2b; }
+.graphic-orb img { display: block; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; object-position: center 35%; }
 .graphic-star { position: absolute; color: var(--accent); font-size: 18px; }
 .star-top { top: 30px; right: 64px; }
 .star-bottom { right: 22px; bottom: 70px; font-size: 14px; }

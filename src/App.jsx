@@ -111,13 +111,13 @@ function App() {
             </div>
             <div className="hero-footnote"><span>MANILA, PHILIPPINES</span><span>WEB · MOBILE · SOFTWARE</span></div>
           </div>
-          <div className="hero-graphic" aria-hidden="true">
-            <div className="graphic-ring ring-outer" />
-            <div className="graphic-ring ring-inner" />
-            <div className="graphic-orb"><span>R</span></div>
-            <span className="graphic-star star-top">✳</span>
-            <span className="graphic-star star-bottom">✳</span>
-            <span className="graphic-caption">A LITTLE CURIOSITY GOES A LONG WAY</span>
+          <div className="hero-graphic">
+            <div className="graphic-ring ring-outer" aria-hidden="true" />
+            <div className="graphic-ring ring-inner" aria-hidden="true" />
+            <div className="graphic-orb"><img src="/profile.jpg" alt="Portrait of Roan Villaluz" /></div>
+            <span className="graphic-star star-top" aria-hidden="true">✳</span>
+            <span className="graphic-star star-bottom" aria-hidden="true">✳</span>
+            <span className="graphic-caption" aria-hidden="true">A LITTLE CURIOSITY GOES A LONG WAY</span>
           </div>
           <a className="scroll-note" href="#about"><span /> SCROLL TO EXPLORE</a>
         </section>
