@@ -8,7 +8,7 @@ const projects = [
     name: 'BiyaHero',
     kind: 'Capstone project · Front-end developer',
     date: 'May 2026',
-    description: 'A transportation safety platform for reviewing community reports and route coverage. I built the interface, added search and filters, and integrated Mapbox maps.',
+    description: 'A transportation safety platform for reviewing community reports and route coverage. Roan built the interface, added search and filters, and integrated Mapbox maps.',
     tools: ['React', 'Vite', 'Mapbox'],
     thumbnail: '/projects/biyahero/login.png',
     screenshots: [
@@ -20,9 +20,9 @@ const projects = [
     overview: 'BiyaHero is a capstone project focused on transportation safety. It brings community reports and route information together so administrators can review safety concerns and explore route coverage.',
     galleryNote: 'Account management, security, and activity screens are left out of this showcase.',
     contributions: [
-      'Built the front-end interface with React and Vite.',
-      'Added search, dropdown, and filtering interactions to help users find information.',
-      'Integrated a map into the interface to make route information easier to explore.',
+      'Roan built the front-end interface with React and Vite.',
+      'He added search, dropdown, and filtering interactions to help users find information.',
+      'He integrated a map into the interface to make route information easier to explore.',
     ],
   },
   {
@@ -44,10 +44,10 @@ const projects = [
     overview: 'An e-commerce site for Degraded, a streetwear brand. Customers can browse and filter products, create an account, add products to a cart, and proceed to checkout.',
     galleryNote: 'Profile and checkout screens are left out because they show account details.',
     contributions: [
-      'Served as the main developer and coordinated work across a four-person team.',
-      'Implemented authentication, product browsing, a shopping cart, and checkout.',
-      'Built the site with HTML, CSS, JavaScript, PHP, and MySQL.',
-      'Coordinated front-end and back-end integration.',
+      'Roan served as the main developer and coordinated work across a four-person team.',
+      'He implemented authentication, product browsing, a shopping cart, and checkout.',
+      'He built the site with HTML, CSS, JavaScript, PHP, and MySQL.',
+      'He coordinated front-end and back-end integration.',
     ],
   },
 ]
@@ -99,6 +99,7 @@ function ProjectCard({ project }) {
         <ul className="tag-list" aria-label="Technologies used">
           {project.tools.map((tool) => <li key={tool}>{tool}</li>)}
         </ul>
+        <span className="project-open">View project details <Arrow diagonal /></span>
       </div>
     </>
   )
@@ -133,7 +134,7 @@ function ProjectDetails({ project }) {
 
       <div className="project-detail-columns">
         <section>
-          <h2>What I worked on</h2>
+          <h2>Roan’s contributions</h2>
           <ul>{project.contributions.map((item) => <li key={item}>{item}</li>)}</ul>
         </section>
         <section>
@@ -143,7 +144,7 @@ function ProjectDetails({ project }) {
       </div>
 
       <section className="project-showcase" aria-labelledby="project-showcase-title">
-        <div className="project-showcase-heading"><div><p className="micro-label">PROJECT SHOWCASE</p><h2 id="project-showcase-title">Screens from {project.name}</h2></div><p>{project.galleryNote}</p></div>
+        <div className="project-showcase-heading"><div><p className="micro-label">PRODUCT SHOWCASE</p><h2 id="project-showcase-title">Screens from {project.name}</h2></div><p>{project.galleryNote}</p></div>
         <div className="screenshot-gallery">
           {project.screenshots.map((screenshot) => (
             <figure className="screenshot-card" key={screenshot.src}>
@@ -154,7 +155,7 @@ function ProjectDetails({ project }) {
         </div>
       </section>
 
-      <div className="project-page-bottom"><a className="button button-primary" href="/#work">← Back to all projects</a><a className="simple-link" href="/#contact">Get in touch <Arrow diagonal /></a></div>
+      <div className="project-page-bottom"><a className="button button-primary" href="/#work">← Back to all projects</a><a className="simple-link" href="/#contact">Contact Roan <Arrow diagonal /></a></div>
     </main>
   )
 }
@@ -190,6 +191,7 @@ function App() {
 
   return (
     <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
         <a className="wordmark" href="#home" onClick={(event) => scrollToSection(event, 'home')} aria-label="Roan Villaluz home"><span>R</span> ROAN VILLALUZ<span className="wordmark-dot">.</span></a>
         <nav aria-label="Main navigation">
@@ -200,16 +202,16 @@ function App() {
         </nav>
       </header>
 
-      <main>
+      <main id="main-content">
         <section className="hero page-width" id="home">
           <div className="hero-copy">
             <p className="eyebrow"><span className="availability-dot" /> OPEN TO INTERNSHIP OPPORTUNITIES</p>
-            <h1>IT student<br />building for <span>web &amp; mobile.</span></h1>
-            <p className="hero-description">I’m studying Information Technology at National University Manila and building my skills through hands-on web and mobile projects.</p>
+            <h1>IT student focused on<br /><span>web &amp; mobile development.</span></h1>
+            <p className="hero-description">Roan is an Information Technology student at National University Manila, developing his skills through hands-on web and mobile projects.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#work" onClick={(event) => scrollToSection(event, 'work')}>Explore my work <Arrow /></a>
+              <a className="button button-primary" href="#work" onClick={(event) => scrollToSection(event, 'work')}>Explore Roan’s work <Arrow /></a>
               <a className="button button-outline" href="/resume.pdf" download="Roan-Villaluz-Resume.pdf" aria-label="Download Roan Villaluz's resume as a PDF">Download resume</a>
-              <a className="simple-link" href="mailto:vroan21@gmail.com">Get in touch <Arrow diagonal /></a>
+            <a className="simple-link" href="mailto:vroan21@gmail.com">Email Roan <Arrow diagonal /></a>
             </div>
             <div className="hero-footnote"><span>MANILA, PHILIPPINES</span><span>WEB · MOBILE · SOFTWARE</span></div>
           </div>
@@ -219,7 +221,6 @@ function App() {
             <div className="graphic-orb"><img src="/profile.jpg" alt="Portrait of Roan Villaluz" /></div>
             <span className="graphic-star star-top" aria-hidden="true">✳</span>
             <span className="graphic-star star-bottom" aria-hidden="true">✳</span>
-            <span className="graphic-caption" aria-hidden="true">A LITTLE CURIOSITY GOES A LONG WAY</span>
           </div>
           <a className="scroll-note" href="#about" onClick={(event) => scrollToSection(event, 'about')}><span /> SCROLL TO EXPLORE</a>
         </section>
@@ -227,24 +228,19 @@ function App() {
         <section className="about-section page-width" id="about">
           <div className="section-label"><span>01 / ABOUT</span><i /></div>
           <div className="about-grid">
-            <h2>Hi, I'm<br /><span>Roan James A. Villaluz.</span></h2>
+            <h2>Roan James A.<br /><span>Villaluz.</span></h2>
             <div className="about-copy">
-              <p>I’m pursuing a Bachelor of Science in Information Technology at National University Manila, with a focus on mobile and web application development.</p>
-              <p>My university projects have given me experience with front-end development, databases, and team collaboration. I’m looking for an internship where I can contribute, strengthen my skills, and learn from an experienced team.</p>
+              <p>Roan is pursuing a Bachelor of Science in Information Technology at National University Manila, with a focus on mobile and web application development.</p>
+              <p>His university projects have given him experience with front-end development, databases, and team collaboration. He is seeking an internship where he can contribute, strengthen his skills, and learn from an experienced team.</p>
               <a className="simple-link accent-link" href="https://www.linkedin.com/in/roan-villaluz-651072328/" target="_blank" rel="noreferrer">Connect on LinkedIn <Arrow diagonal /></a>
             </div>
-          </div>
-          <div className="qualities">
-            <div><span>01</span><b>Curious learner</b><small>Always exploring how things work</small></div>
-            <div><span>02</span><b>Team-minded</b><small>Comfortable building together</small></div>
-            <div><span>03</span><b>Hands-on</b><small>Learning by making real projects</small></div>
           </div>
         </section>
 
         <section className="work-section" id="work">
           <div className="page-width work-inner">
             <div className="section-label"><span>02 / SELECTED WORK</span><i /></div>
-            <div className="work-intro"><h2>Projects with<br />purpose<span>.</span></h2><p>A selection of university projects where I’ve applied my development skills.</p></div>
+            <div className="work-intro"><h2>Selected<br />projects<span>.</span></h2><p>A selection of university projects where Roan has applied his development skills.</p></div>
             <div className="project-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
             <p className="work-note">Select a project to view its details and screenshots.</p>
           </div>
@@ -253,7 +249,7 @@ function App() {
         <section className="skills-section page-width" id="skills">
           <div className="section-label"><span>03 / TOOLKIT</span><i /></div>
           <div className="skills-layout">
-            <div><h2>Tools I use<br />to <span>make things.</span></h2><p className="skills-intro">A growing toolkit shaped by coursework, experimentation, and project work.</p></div>
+            <div><h2>Technical<br /><span>skills.</span></h2><p className="skills-intro">Technologies Roan has used in coursework, experimentation, and project work.</p></div>
             <div className="skill-groups">
               {skillGroups.map((group, index) => (
                 <div className="skill-row" key={group.label}>
@@ -270,7 +266,7 @@ function App() {
           <div className="page-width background-inner">
             <div className="section-label"><span>04 / BACKGROUND</span><i /></div>
             <div className="education-layout">
-              <div><h2>Learning<br />in progress<span>.</span></h2><p className="micro-label">EDUCATION</p></div>
+              <div><h2>Education &amp;<br />training<span>.</span></h2><p className="micro-label">EDUCATION</p></div>
               <div className="education-detail">
                 <time>AUG 2023 — PRESENT</time>
                 <h3>National University Manila</h3>
@@ -285,9 +281,9 @@ function App() {
         <section className="contact-section page-width" id="contact">
           <div className="section-label"><span>05 / CONTACT</span><i /></div>
           <div className="contact-layout">
-            <div><p className="eyebrow">HAVE AN OPPORTUNITY IN MIND?</p><h2>Let’s make<br />something <span>matter.</span></h2></div>
+            <div><p className="eyebrow">INTERNSHIP OPPORTUNITIES</p><h2>Contact<br /><span>Roan.</span></h2></div>
             <div className="contact-copy">
-              <p>I’m open to internship opportunities and conversations about web and mobile development.</p>
+              <p>Roan is open to internship opportunities and conversations about web and mobile development.</p>
               <a className="button button-soft" href="mailto:vroan21@gmail.com">vroan21@gmail.com <Arrow diagonal /></a>
               <div className="social-links">
                 <a href="https://www.linkedin.com/in/roan-villaluz-651072328/" target="_blank" rel="noreferrer">LinkedIn <Arrow diagonal /></a>
